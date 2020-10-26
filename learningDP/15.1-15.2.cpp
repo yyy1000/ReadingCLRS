@@ -103,3 +103,36 @@ int main() {
 //extension:能给出切割方式
 
 //15.2 矩阵链乘法
+//问题分析
+//步骤1:最优括号化方案的结构特征
+//步骤2:递归求解方案
+//递归基:当链长度为1时，不需要任何计算，代价为0
+//状态转移方程:m[i,j]=0, i=j
+//                   min(m[i,k]+m[k+1,j]+pi-1*pk*pj), i<j
+//注意到，递归算法会在递归调用树的不同分支中多次遇到同一个子问题
+//这种子问题重叠的性质是应用动态规划的一个标识(另一个：最优子结构)
+
+//步骤3 计算最优代价,自底向上算法如下
+/*
+vector<vector<int>> MatrixChainOrder(vector<int> p){
+    size_t n=p.size()-1;
+    vector<vector<int>> m(n,vector(n,0));//save for prices
+    vector<vector<int>> s(n-1,vector(n,0));//save for solutions
+    for(int l=2;l<=n;++l){//l is the chain length
+        for(int i=1;i<=n-l+1;++i){
+            int j=i+l-1;
+            m[i][j]=INT_MAX;
+            for(int k=i;k<j-1;++j){
+                int q=m[i][k]+m[k+1][j]+p.at(i-1)*p.at(k)*p.at(j);
+                if(q<m[i][j]){
+                    m[i][j]=q;
+                    s[i][j]=k;
+                }
+            }
+        }
+    }
+    return m;
+}*/
+
+//步骤4 构造最优解
+//省略 见P215
